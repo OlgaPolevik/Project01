@@ -102,7 +102,23 @@ private:
 class Message
 {
 public:
-    //геттер и сеттер?
+    void setname(const string& name)
+    {
+        m_name = name;
+    }
+    const string& getname()
+    {
+        return m_name;
+    }
+    
+    void setmessage(const string& message)
+    {
+        m_message = message;
+    }
+    const string& getmessage()
+    {
+        return m_message;
+    }
 private:
     string m_name;
     string m_message;
@@ -138,10 +154,40 @@ int main(int argc, const char * argv[])
 {
     setlocale (LC_ALL,"");
     // приветствие
-    // 3 кейса свитч на выбор логин, регистрация, и выход
-    // если логин спрашивает логин и пароль и отрабатывает Session loginUser и запоминает переменную сессии
-    // если регистрация  void registerUser и или регистрирует пользователя или гооврит что такое имя существует и предлагает зарегистрироваться с другим логином
-    // выход по какой то кнопке
+    cout << "Welcome to chat!" << endl;
+    // 3 кейса свитч на выбор логин, регистрация, и выход   
+    char choice = 0;
+    while (true)
+    {
+        cout << "For login press '1', for registration press '2', and press 'q' to exit : " << endl;
+        cin >> choice;
+        bool quit = false;
+        switch (choice)
+        {
+            case '1':
+            // если логин спрашивает логин и пароль и отрабатывает Session loginUser и запоминает переменную сессии
+            //cout << "You 1" << endl;
+                break;
+            case '2':
+                // если регистрация  void registerUser и или регистрирует пользователя или гооврит что такое имя существует и предлагает зарегистрироваться с другим логином
+                //cout << "You 2" << endl;
+                break;
+            case 'q':
+                // выход по какой то кнопке
+                quit = true;
+                //cout << "You quit chat" << endl;
+                break;
+            default:
+                cout << "You have pressed wrong button " << endl;
+                break;
+        }
+        if (quit)
+        {
+            break;
+        }
+    
+    
+    
     // если вход успешен то приветствие и приглашение к вводу сообщения (или приватное или общее) и вариант выхода из сессии но не из чата (три кейса свитч) или if else
     // если приватное сообщение то void sendPrivateMessage
     // если публичное сообщение то void sendPublicMessage
@@ -150,5 +196,7 @@ int main(int argc, const char * argv[])
     // если сообщение публичное то оно отображается сразу Message readPublicMessage() и выкидывает к началу кейсов приглашение на ввод сообщения - перелогина или if else
     // если сообщение приватное оно отобразится только у нужного юзера
     
+    }
+    cout << "You quit chat" << endl;
     return 0;
 }
