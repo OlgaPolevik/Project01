@@ -36,7 +36,7 @@ public:
     {
         m_password = password;
     }
-    const string& getpassword()
+    const string& getpassword() const
     {
         return m_password;
     }
@@ -45,7 +45,7 @@ public:
     {
         m_name = name;
     }
-    const string& getname()
+    const string& getname() const
     {
         return m_name;
     }
@@ -59,8 +59,28 @@ private:
 //класс в котором хранится информация о сессии чата
 class Session
 {
+public:
+    void setname(const string& name)
+    {
+        m_name = name;
+    }
+    const string& getname() const
+    {
+        return m_name;
+    }
+    
+    void setlogin(const string& login)
+    {
+        m_login = login;
+    }
+    const string& getlogin() const
+    {
+        return m_login;
+    }
+
 private:
     string m_login;
+    string m_name;
     int m_sessionId;
 };
 
@@ -107,7 +127,7 @@ public:
     {
         m_name = name;
     }
-    const string& getname()
+    const string& getname() const
     {
         return m_name;
     }
@@ -116,7 +136,7 @@ public:
     {
         m_message = message;
     }
-    const string& getmessage()
+    const string& getmessage() const
     {
         return m_message;
     }
@@ -125,11 +145,16 @@ public:
     {
         m_receiver_login = receiver_login;
     }
-    const string& getreceiver_login()
+    const string& getreceiver_login() const
     {
         return m_receiver_login;
     }
     
+    ostream & operator << (ostream & out)
+    {
+        out << "From: " << m_name << endl << "Text:" << m_message << endl << "To: " << m_receiver_login << endl;
+        return out;
+    }
 private:
     string m_name;
     string m_message;
@@ -141,28 +166,53 @@ class Chat
 {
 public:
     
-   /* void sendPublicMessage(const Session& session, const string& message)
+    void sendPublicMessage(const Session& session, const string& message_text)
     {
         //проверяем активность сессии и если активна то отправить от имени юзера инициатора этой сессии сообщение в общий чат (без указания получателя)
-        
-        
+        Message message;
+        message.setmessage(message_text);
+        message.setname(session.getname());
+        messages.push_back(message);
     }
-    void sendPrivateMessage(const Session& session, const string& receiver_login, const string& message){
+    void sendPrivateMessage(const Session& session, const string& receiver_login, const string& message_text){
         //проевряем активность сессии, наличие логина получателя и отправляем сообщение
+        Message message;
+        message.setmessage(message_text);
+        message.setname(session.getname());
+        message.setreceiver_login(receiver_login); // в мейн спрашиваем у пользователя кому отправить сообщение
+        messages.push_back(message);
     }
-*/
-    Message readPublicMessage(const Session& session)
+
+    dynamic_array<Message> readPrivateMessage(const Session& session)
     {
-        //проходит по массиву сообщений, ищет сообщения в котором имя получателя пустое и возвращает его
-        return Message();
-    }
-    Message readPrivateMessage(const Session& session)
-    {
+        dynamic_array<Message> result;
+        for (int i = 0; i < messages.size(); ++i)
+        {
+            const Message& message = messages[i];
+            if (message.getreceiver_login() == session.getlogin())
+            {
+                result.push_back(message);
+            }
+        }
         //проходит по массиву сообщений, ищет сообщения в котором нужное имя получателя и возвращает
-        return Message();
+        return result;
+    }
+    dynamic_array<Message> readPublicMessage(const Session& session)
+    {
+        dynamic_array<Message> result;
+        for (int i = 0; i < messages.size(); ++i)
+        {
+            const Message& message = messages[i];
+            if (message.getreceiver_login().empty())
+            {
+                result.push_back(message);
+            }
+        }
+        //проходит по массиву сообщений, ищет сообщения в котором пустое имя получателя и возвращает
+        return result;
     }
 private:
-//массив сообщений, пара ключ значение или динамический массив структур с тремя полями (отправитель, получатель, текст сообщения)
+    //массив сообщений, пара ключ значение или динамический массив структур с тремя полями (отправитель, получатель, текст сообщения)
     dynamic_array <Message> messages;
 };
 

@@ -14,6 +14,8 @@ template <class Data>
 class dynamic_array
 {
 public:
+    dynamic_array() = default;
+    
     explicit dynamic_array (int n)
     {
         if (n > 0)
@@ -26,7 +28,8 @@ public:
         }
         m_size = n;
         m_capacity = n;
-    };
+    }
+    
     dynamic_array(const dynamic_array<Data> & a)
     {
         m_size = a.m_size;
