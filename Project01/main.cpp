@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <string>
+#include "dynamic_array.h"
 
 using namespace std;
 
@@ -119,23 +120,37 @@ public:
     {
         return m_message;
     }
+    
+    void setreceiver_login(const string& receiver_login)
+    {
+        m_receiver_login = receiver_login;
+    }
+    const string& getreceiver_login()
+    {
+        return m_receiver_login;
+    }
+    
 private:
     string m_name;
     string m_message;
+    string m_receiver_login;
 };
 
 //класс который отвечает за обмен сообщениями в чате
 class Chat
 {
 public:
-    void sendPublicMessage(const Session& session, const string& message)
+    
+   /* void sendPublicMessage(const Session& session, const string& message)
     {
         //проверяем активность сессии и если активна то отправить от имени юзера инициатора этой сессии сообщение в общий чат (без указания получателя)
+        
+        
     }
     void sendPrivateMessage(const Session& session, const string& receiver_login, const string& message){
         //проевряем активность сессии, наличие логина получателя и отправляем сообщение
     }
-
+*/
     Message readPublicMessage(const Session& session)
     {
         //проходит по массиву сообщений, ищет сообщения в котором имя получателя пустое и возвращает его
@@ -148,6 +163,7 @@ public:
     }
 private:
 //массив сообщений, пара ключ значение или динамический массив структур с тремя полями (отправитель, получатель, текст сообщения)
+    dynamic_array <Message> messages;
 };
 
 int main(int argc, const char * argv[])
@@ -155,7 +171,7 @@ int main(int argc, const char * argv[])
     setlocale (LC_ALL,"");
     // приветствие
     cout << "Welcome to chat!" << endl;
-    // 3 кейса свитч на выбор логин, регистрация, и выход   
+    // 3 кейса свитч на выбор логин, регистрация, и выход
     char choice = 0;
     while (true)
     {
