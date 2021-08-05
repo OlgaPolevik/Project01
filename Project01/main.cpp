@@ -60,6 +60,14 @@ private:
 class Session
 {
 public:
+    Session()
+    {
+        
+    }
+    ~Session()
+    {
+        
+    }
     void setname(const string& name)
     {
         m_name = name;
@@ -81,7 +89,6 @@ public:
 private:
     string m_login;
     string m_name;
-    int m_sessionId;
 };
 
 //класс который будет отвечать за регистрацию и залогинивание пользователя
@@ -96,27 +103,72 @@ public:
     {
         
     }
-    bool registerUser (const User& newUser)
+    
+    
+   /* bool registerUser (const User& newUser)
     {
-        //проверка на существующего юзера
-        //реализация регистрации
+        return true;
+    }*/
+    
+    //проверка на существующего юзера
+    bool isUserExist (const string& login)
+     {
+         for(int i = 0; i < users.size(); ++i)
+         {
+             if(users[i].getlogin() == login)
+             {
+                 return true;
+             }
+         }
+         return false;
+     }
+    //реализация регистрации
+    bool registerUser (const string& name, const string& login, const string& password)
+    {
+        if (isUserExist(login))
+        {
+            return false;
+        }
+        
+        User user;
+        user.setname(name);
+        user.setlogin(login);
+        user.setpassword(password);
+        users.push_back(user);
         return true;
     }
+    //инициация сессии активной? или залогинивание юзера
     Session loginUser (const string& login, const string& password)
     {
+        for(int i = 0; i < users.size(); ++i)
+        {
+            if(users[i].getlogin() == login && users[i].getpassword() == password)
+            {
+                //coздаем сессию для пользователя у которого совпадают логин и пароль
+                Session session;
+                session.setlogin(login);
+                session.setname(users[i].getname());
+                sessions.push_back(session);
+                return session;
+            }
+        }
         return Session();
     }
+    //разлогинивание юзера но не выход из чата
     void logout (const Session& session)
     {
-        
+        for(int i = 0; i < sessions.size(); ++i)
+        {
+            if(sessions[i].getlogin() == session.getlogin())
+            {
+                sessions[i] = Session();
+            }
+        }
     }
 private:
     // массив юзеров, или динамический массив или залезть дальше и использовать вектор, что конечно будет гораздо проще
-    /*bool isUserExist (const string& login)
-     {
-        //реализация
-        return false;
-     };*/
+    dynamic_array <User> users;
+    dynamic_array <Session> sessions;
 };
 
 // класс (структура) которая содержит имя отправителя и сообщение
@@ -219,6 +271,9 @@ private:
 int main(int argc, const char * argv[])
 {
     setlocale (LC_ALL,"");
+    Login mainlogin;
+    Chat mainchat;
+    int count = 0;
     // приветствие
     cout << "Welcome to chat!" << endl;
     // 3 кейса свитч на выбор логин, регистрация, и выход
@@ -231,12 +286,52 @@ int main(int argc, const char * argv[])
         switch (choice)
         {
             case '1':
-            // если логин спрашивает логин и пароль и отрабатывает Session loginUser и запоминает переменную сессии
-            //cout << "You 1" << endl;
+                //логин
+            {
+                cout << "Enter your login: " << endl;
+                string login;
+                cin >> login;
+                cout << "Enter you password: " << endl;
+                string password;
+                cin >> password;
+                Session usersession = mainlogin.loginUser(login, password);
+                if (!usersession.getlogin().empty())
+                {
+                    cout << "Hellow " << usersession.getname() << endl;
+                }
+                else
+                {
+                    cout << "Wrong login or password" << endl;
+                    count ++;
+                    if (count > 3)
+                    {
+                        quit = true;
+                    }
+                }
+            }
+                                
                 break;
             case '2':
                 // если регистрация  void registerUser и или регистрирует пользователя или гооврит что такое имя существует и предлагает зарегистрироваться с другим логином
-                //cout << "You 2" << endl;
+            {
+                cout << "Enter your login: " << endl;
+                string login;
+                cin >> login;
+                cout << "Enter you password: " << endl;
+                string password;
+                cin >> password;
+                cout << "Enter your name: " << endl;
+                string name;
+                cin >> name;
+                if (mainlogin.registerUser(name, login, password))
+                {
+                    cout << "you are registered!" << endl;
+                }
+                else
+                {
+                    cout << "user exists." << endl;
+                }
+            }
                 break;
             case 'q':
                 // выход по какой то кнопке
