@@ -301,23 +301,57 @@ int main(int argc, const char * argv[])
                     cout << "Hellow " << usersession.getname() << endl;
                     while (true)
                     {
-                        cout << "To send private message press '1', to send private message press '2', to logout press '3' and press 'q' to exit : " << endl;
+                        cout << "To send private message press '1', to send public message press '2', to logout press '3' and press 'q' to exit : " << endl;
                         cin >> choice;
                         switch (choice)
                         {
                             case '1':
                             {
-                                cout << "1";
+                                // если приватное сообщение то void sendPrivateMessage
+                                cout << "Enter receiver login: " << endl;
+                                string receiver_login;
+                                cin >> receiver_login;
+                                cout << "Enter you message: " << endl;
+                                string message_text;
+                                cin >> message_text;
+                                mainchat.sendPrivateMessage(usersession, receiver_login, message_text);
                             }
                                 break;
                             case '2':
                             {
-                                cout << "2";
+                                // если публичное сообщение то void sendPublicMessage
+                                cout << "Enter you message: " << endl;
+                                string message_text;
+                                cin >> message_text;
+                                mainchat.sendPublicMessage(usersession, message_text);
                             }
                                 break;
                             case '3':
                             {
-                                cout << "3";
+                                // вариант выхода из сессии но не из чата - void logout
+                                mainlogin.logout (usersession);
+                                cout << "You logout " << endl;
+                                cout << "Press 'y' if yoy want to login or 'n' to quit " << endl;
+                                cin >> choice;
+                                if(choice == 'y')
+                                {
+                                    cout << "Enter your login: " << endl;
+                                    string login;
+                                    cin >> login;
+                                    cout << "Enter you password: " << endl;
+                                    string password;
+                                    cin >> password;
+                                    Session usersession = mainlogin.loginUser(login, password);
+                                }
+                                else if (choice == 'n')
+                                {
+                                    quit = true;
+                                }
+                                else
+                                {
+                                    cout << "You have pressed wrong button " << endl;
+                                }
+                                
                             }
                                 break;
                             case 'q':
@@ -385,9 +419,9 @@ int main(int argc, const char * argv[])
     
     
    
-    // если приватное сообщение то void sendPrivateMessage
-    // если публичное сообщение то void sendPublicMessage
-    // вариант выхода из сессии но не из чата - void logout
+    
+    
+    
     // переходим к отображению сообщений
     // если сообщение публичное то оно отображается сразу Message readPublicMessage() и выкидывает к началу кейсов приглашение на ввод сообщения - перелогина или if else
     // если сообщение приватное оно отобразится только у нужного юзера
