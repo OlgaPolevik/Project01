@@ -297,7 +297,38 @@ int main(int argc, const char * argv[])
                 Session usersession = mainlogin.loginUser(login, password);
                 if (!usersession.getlogin().empty())
                 {
+                    // если вход успешен то приветствие и приглашение к вводу сообщения (или приватное или общее) и вариант выхода из сессии но не из чата (три кейса свитч) или if else
                     cout << "Hellow " << usersession.getname() << endl;
+                    cout << "To send private message press '1', to send private message press '2', to logout press '3' and press 'q' to exit : " << endl;
+                    cin >> choice;
+                    switch (choice)
+                    {
+                    case '1':
+                        {
+                            
+                        }
+                        break;
+                    case '2':
+                        {
+                                
+                        }
+                        break;
+                    case '3':
+                        {
+                                    
+                        }
+                        break;
+                    case 'q':
+                    // выход по какой то кнопке
+                    quit = true;
+                    //cout << "You quit chat" << endl;
+                    break;
+                    default:
+                            cout << "You have pressed wrong button " << endl;
+                            break;
+                            
+                    }
+                    
                 }
                 else
                 {
@@ -349,7 +380,7 @@ int main(int argc, const char * argv[])
     
     
     
-    // если вход успешен то приветствие и приглашение к вводу сообщения (или приватное или общее) и вариант выхода из сессии но не из чата (три кейса свитч) или if else
+   
     // если приватное сообщение то void sendPrivateMessage
     // если публичное сообщение то void sendPublicMessage
     // вариант выхода из сессии но не из чата - void logout
