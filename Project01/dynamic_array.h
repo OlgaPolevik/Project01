@@ -93,12 +93,13 @@ private:
 };
 
 template<class Data>
-ostream & operator << (ostream & out, dynamic_array<Data> a)
+ostream& operator << (ostream& out, dynamic_array<Data> a )
 {
     for (int i = 0; i < a.size(); ++i)
     {
-        out << a[i] << " ";
+        out << a[i] << endl;
     }
     return out;
 }
+
 #endif /* dynamic_array_h */

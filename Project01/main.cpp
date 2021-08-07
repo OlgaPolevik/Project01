@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <string>
+#include <exception>
 #include "dynamic_array.h"
 
 using namespace std;
@@ -22,7 +23,6 @@ public:
     {
         
     }
-    
     void setlogin(const string& login)
     {
         m_login = login;
@@ -31,7 +31,6 @@ public:
     {
         return m_login;
     }
-    
     void setpassword(const string& password)
     {
         m_password = password;
@@ -40,7 +39,6 @@ public:
     {
         return m_password;
     }
-    
     void setname(const string& name)
     {
         m_name = name;
@@ -49,7 +47,6 @@ public:
     {
         return m_name;
     }
-    
 private:
     string m_name;
     string m_login;
@@ -76,7 +73,6 @@ public:
     {
         return m_name;
     }
-    
     void setlogin(const string& login)
     {
         m_login = login;
@@ -103,13 +99,6 @@ public:
     {
         
     }
-    
-    
-   /* bool registerUser (const User& newUser)
-    {
-        return true;
-    }*/
-    
     //проверка на существующего юзера
     bool isUserExist (const string& login)
      {
@@ -129,7 +118,10 @@ public:
         {
             return false;
         }
-        
+        if (users.size() == 3)
+        {
+            throw exception();
+        }
         User user;
         user.setname(name);
         user.setlogin(login);
@@ -202,16 +194,26 @@ public:
         return m_receiver_login;
     }
     
-    ostream & operator << (ostream & out)
-    {
-        out << "From: " << m_name << endl << "Text:" << m_message << endl << "To: " << m_receiver_login << endl;
-        return out;
-    }
+   
 private:
     string m_name;
     string m_message;
     string m_receiver_login;
 };
+
+ostream & operator << (ostream & out, const Message & m)
+{
+    if(m.getreceiver_login().empty())
+    {
+        out << "From: " << m.getname() << endl << "Text:" << m.getmessage() << endl;
+        return out;
+    }
+    else
+    {
+        out << "From: " << m.getname() << endl << "Text:" << m.getmessage() << endl << "To: " << m.getreceiver_login() << endl;
+        return out;
+    }
+}
 
 //класс который отвечает за обмен сообщениями в чате
 class Chat
@@ -249,7 +251,7 @@ public:
         //проходит по массиву сообщений, ищет сообщения в котором нужное имя получателя и возвращает
         return result;
     }
-    dynamic_array<Message> readPublicMessage(const Session& session)
+    dynamic_array<Message> readPublicMessage(const Session& session) 
     {
         dynamic_array<Message> result;
         for (int i = 0; i < messages.size(); ++i)
@@ -299,6 +301,8 @@ int main(int argc, const char * argv[])
                 {
                     // если вход успешен то приветствие и приглашение к вводу сообщения (или приватное или общее) и вариант выхода из сессии но не из чата (три кейса свитч) или if else
                     cout << "Hellow " << usersession.getname() << endl;
+                    // если сообщение приватное оно отобразится только у нужного юзера
+                    cout << mainchat.readPrivateMessage(usersession);
                     while (true)
                     {
                         cout << "To send private message press '1', to send public message press '2', to logout press '3' and press 'q' to exit : " << endl;
@@ -311,19 +315,23 @@ int main(int argc, const char * argv[])
                                 cout << "Enter receiver login: " << endl;
                                 string receiver_login;
                                 cin >> receiver_login;
+                                cin.ignore(INT_MAX, '\n');
                                 cout << "Enter you message: " << endl;
                                 string message_text;
-                                cin >> message_text;
+                                getline(cin, message_text);
                                 mainchat.sendPrivateMessage(usersession, receiver_login, message_text);
                             }
                                 break;
                             case '2':
                             {
                                 // если публичное сообщение то void sendPublicMessage
+                                cin.ignore(INT_MAX, '\n');
                                 cout << "Enter you message: " << endl;
                                 string message_text;
-                                cin >> message_text;
+                                getline(cin, message_text);
                                 mainchat.sendPublicMessage(usersession, message_text);
+                                // если сообщение публичное то оно отображается сразу Message readPublicMessage() и выкидывает к началу кейсов приглашение на ввод сообщения - перелогина или if else
+                                cout << mainchat.readPublicMessage(usersession);
                             }
                                 break;
                             case '3':
@@ -331,7 +339,7 @@ int main(int argc, const char * argv[])
                                 // вариант выхода из сессии но не из чата - void logout
                                 mainlogin.logout (usersession);
                                 cout << "You logout " << endl;
-                                cout << "Press 'y' if yoy want to login or 'n' to quit " << endl;
+                                cout << "Press 'y' if you want to login or 'n' to quit " << endl;
                                 cin >> choice;
                                 if(choice == 'y')
                                 {
@@ -341,7 +349,10 @@ int main(int argc, const char * argv[])
                                     cout << "Enter you password: " << endl;
                                     string password;
                                     cin >> password;
-                                    Session usersession = mainlogin.loginUser(login, password);
+                                    usersession = mainlogin.loginUser(login, password);
+                                    cout << "Hellow " << usersession.getname() << endl;
+                                    // если сообщение приватное оно отобразится только у нужного юзера
+                                    cout << mainchat.readPrivateMessage(usersession);
                                 }
                                 else if (choice == 'n')
                                 {
@@ -351,7 +362,6 @@ int main(int argc, const char * argv[])
                                 {
                                     cout << "You have pressed wrong button " << endl;
                                 }
-                                
                             }
                                 break;
                             case 'q':
@@ -392,13 +402,20 @@ int main(int argc, const char * argv[])
                 cout << "Enter your name: " << endl;
                 string name;
                 cin >> name;
-                if (mainlogin.registerUser(name, login, password))
+                try
                 {
-                    cout << "you are registered!" << endl;
+                    if (mainlogin.registerUser(name, login, password))
+                    {
+                        cout << "you are registered!" << endl;
+                    }
+                    else
+                    {
+                        cout << "user exists." << endl;
+                    }
                 }
-                else
+                catch (exception &ex)
                 {
-                    cout << "user exists." << endl;
+                    cout << "User limit reached!" << endl;
                 }
             }
                 break;
@@ -415,17 +432,6 @@ int main(int argc, const char * argv[])
         {
             break;
         }
-    
-    
-    
-   
-    
-    
-    
-    // переходим к отображению сообщений
-    // если сообщение публичное то оно отображается сразу Message readPublicMessage() и выкидывает к началу кейсов приглашение на ввод сообщения - перелогина или if else
-    // если сообщение приватное оно отобразится только у нужного юзера
-    
     }
     cout << "You quit chat" << endl;
     return 0;
