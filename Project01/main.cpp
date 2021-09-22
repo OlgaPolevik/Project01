@@ -104,14 +104,15 @@ public:
     //проверка на существующего юзера
     bool isUserExist (const string& login)
      {
-         for(int i = 0; i < users.size(); ++i)
+         /*for(int i = 0; i < users.size(); ++i)
          {
              if(users[i].getlogin() == login)
              {
                  return true;
              }
          }
-         return false;
+         return false;*/
+         return users.count(login) != 0;
      }
     //реализация регистрации
     bool registerUser (const string& name, const string& login, const string& password)
@@ -128,13 +129,14 @@ public:
         user.setname(name);
         user.setlogin(login);
         user.setpassword(password);
-        users.push_back(user);
+        //users.push_back(user);
+        users.emplace(login,user);
         return true;
     }
     //инициация сессии активной? или залогинивание юзера
     Session loginUser (const string& login, const string& password)
     {
-        for(int i = 0; i < users.size(); ++i)
+       /* for(int i = 0; i < users.size(); ++i)
         {
             if(users[i].getlogin() == login && users[i].getpassword() == password)
             {
@@ -146,25 +148,41 @@ public:
                 return session;
             }
         }
+        return Session();*/
+        map<string,User>::iterator user = users.find(login);
+        if(user == users.end())
+        {
+            return Session();
+        }
+        if(user -> second.getpassword() == password)
+        {
+            //coздаем сессию для пользователя у которого совпадают логин и пароль
+            Session session;
+            session.setlogin(login);
+            session.setname(user -> second.getname());
+            sessions.emplace(login,session);
+            return session;
+        }
         return Session();
     }
     //разлогинивание юзера но не выход из чата
     void logout (const Session& session)
     {
-        for(int i = 0; i < sessions.size(); ++i)
+        /*for(int i = 0; i < sessions.size(); ++i)
         {
             if(sessions[i].getlogin() == session.getlogin())
             {
                 sessions[i] = Session();
             }
-        }
+        }*/
+        sessions.erase(session.getlogin());
     }
 private:
     // массив юзеров, или динамический массив или залезть дальше и использовать вектор, что конечно будет гораздо проще
     /*dynamic_array <User> users;
     dynamic_array <Session> sessions;*/
-    vector<User> users;
-    vector<Session> sessions;
+    map<string,User> users;
+    map<string,Session> sessions;
 };
 
 // класс (структура) которая содержит имя отправителя и сообщение
