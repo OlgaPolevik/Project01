@@ -7,7 +7,9 @@
 #include <iostream>
 #include <string>
 #include <exception>
-#include "dynamic_array.h"
+#include <vector>
+#include <map>
+//#include "dynamic_array.h"
 
 using namespace std;
 
@@ -159,8 +161,10 @@ public:
     }
 private:
     // массив юзеров, или динамический массив или залезть дальше и использовать вектор, что конечно будет гораздо проще
-    dynamic_array <User> users;
-    dynamic_array <Session> sessions;
+    /*dynamic_array <User> users;
+    dynamic_array <Session> sessions;*/
+    vector<User> users;
+    vector<Session> sessions;
 };
 
 // класс (структура) которая содержит имя отправителя и сообщение
@@ -201,6 +205,15 @@ private:
     string m_receiver_login;
 };
 
+template<class Data>
+ostream& operator << (ostream& out, const vector<Data>& a )
+{
+    for (int i = 0; i < a.size(); ++i)
+    {
+        out << a[i] << endl;
+    }
+    return out;
+}
 ostream & operator << (ostream & out, const Message & m)
 {
     if(m.getreceiver_login().empty())
@@ -237,7 +250,7 @@ public:
         messages.push_back(message);
     }
 
-    dynamic_array<Message> readPrivateMessage(const Session& session)
+   /* dynamic_array<Message> readPrivateMessage(const Session& session)
     {
         dynamic_array<Message> result;
         for (int i = 0; i < messages.size(); ++i)
@@ -250,8 +263,24 @@ public:
         }
         //проходит по массиву сообщений, ищет сообщения в котором нужное имя получателя и возвращает
         return result;
-    }
-    dynamic_array<Message> readPublicMessage(const Session& session) 
+    }*/
+    
+    vector<Message> readPrivateMessage(const Session& session)
+     {
+         vector<Message> result;
+         for (int i = 0; i < messages.size(); ++i)
+         {
+             const Message& message = messages[i];
+             if (message.getreceiver_login() == session.getlogin())
+             {
+                 result.push_back(message);
+             }
+         }
+         //проходит по массиву сообщений, ищет сообщения в котором нужное имя получателя и возвращает
+         return result;
+     }
+    
+    /*dynamic_array<Message> readPublicMessage(const Session& session)
     {
         dynamic_array<Message> result;
         for (int i = 0; i < messages.size(); ++i)
@@ -264,10 +293,26 @@ public:
         }
         //проходит по массиву сообщений, ищет сообщения в котором пустое имя получателя и возвращает
         return result;
+    }*/
+    vector<Message> readPublicMessage(const Session& session)
+    {
+        vector<Message> result;
+        for (int i = 0; i < messages.size(); ++i)
+        {
+            const Message& message = messages[i];
+            if (message.getreceiver_login().empty())
+            {
+                result.push_back(message);
+            }
+        }
+        //проходит по массиву сообщений, ищет сообщения в котором пустое имя получателя и возвращает
+        return result;
     }
+    
 private:
     //массив сообщений, пара ключ значение или динамический массив структур с тремя полями (отправитель, получатель, текст сообщения)
-    dynamic_array <Message> messages;
+    //dynamic_array <Message> messages;
+    vector<Message> messages;
 };
 
 int main(int argc, const char * argv[])
@@ -349,6 +394,7 @@ int main(int argc, const char * argv[])
                                     cout << "Enter you password: " << endl;
                                     string password;
                                     cin >> password;
+                                    if (!usersession.getlogin().empty())
                                     usersession = mainlogin.loginUser(login, password);
                                     cout << "Hellow " << usersession.getname() << endl;
                                     // если сообщение приватное оно отобразится только у нужного юзера
@@ -362,7 +408,7 @@ int main(int argc, const char * argv[])
                                 {
                                     cout << "You have pressed wrong button " << endl;
                                 }
-                            }
+                    }
                                 break;
                             case 'q':
                                 // выход по какой то кнопке
