@@ -14,6 +14,8 @@
 #include <cstdlib>
 #include <stdlib.h>
 #include <sys/utsname.h>
+#include <fstream>
+#include <ostream>
 
 using namespace std;
 
@@ -64,6 +66,9 @@ private:
     string m_name;
     string m_login;
     string m_password;
+    
+    friend istream& operator >>(istream& is, User& obj);
+    friend ostream& operator <<(ostream& os, const User& obj);
 };
 
 //класс в котором хранится информация о сессии чата
@@ -101,6 +106,9 @@ public:
 private:
     string m_login;
     string m_name;
+    
+    friend istream& operator >>(istream& is, Session& obj);
+    friend ostream& operator <<(ostream& os, const Session& obj);
 };
 
 //класс который будет отвечать за регистрацию и залогинивание пользователя
@@ -195,6 +203,10 @@ public:
         }*/
         sessions.erase(session.getlogin());
     }
+
+    friend ostream & operator << (ostream & os, const Login& login );
+    friend istream & operator >> (istream & os, Login& login );
+    
 private:
     // массив юзеров, или динамический массив или залезть дальше и использовать вектор, что конечно будет гораздо проще
     /*dynamic_array <User> users;
@@ -202,6 +214,48 @@ private:
     map<string,User> users;
     map<string,Session> sessions;
 };
+
+ostream & operator << (ostream & os, const Login& login )
+{
+    os << login.users.size() << endl;
+    for(const auto & u : login.users)
+    {
+        os << u.second;
+    }
+    os << login.sessions.size();
+    for(const auto & s : login.sessions)
+    {
+        os << s.second;
+    }
+    return os;
+}
+
+istream & operator >> (istream & is, Login& login )
+{
+    size_t users_count;
+    
+    is >> users_count;
+    
+    for(int i = 0; i < users_count; i++)
+    {
+        User u;
+        is >> u;
+        login.users.emplace(u.getlogin(), u);
+    }
+    
+    size_t sessions_count;
+    
+    is >> sessions_count;
+    
+    for(int i = 0; i < sessions_count; i++)
+    {
+        Session s;
+        is >> s;
+        login.sessions.emplace(s.getlogin(), s);
+    }
+    return is;
+}
+
 
 // класс (структура) которая содержит имя отправителя и сообщение
 class Message
@@ -239,9 +293,12 @@ private:
     string m_name;
     string m_message;
     string m_receiver_login;
+    
+    friend istream& operator >>(istream& is, Message& obj);
+    friend ostream& operator <<(ostream& os, const Message& obj);
 };
 
-template<class Data>
+/*template<class Data>
 ostream& operator << (ostream& out, const vector<Data>& a )
 {
     for (int i = 0; i < a.size(); ++i)
@@ -263,6 +320,24 @@ ostream & operator << (ostream & out, const Message & m)
         return out;
     }
 }
+*/
+
+void displaymessage (ostream & out, const vector <Message> & msg)
+{
+    for(int i = 0; i < msg.size(); i++)
+    {
+        const Message& m = msg[i];
+        if(m.getreceiver_login().empty())
+        {
+            out << "From: " << m.getname() << endl << "Text:" << m.getmessage() << endl;
+        }
+        else
+        {
+            out << "From: " << m.getname() << endl << "Text:" << m.getmessage() << endl << "To: " << m.getreceiver_login() << endl;
+        }
+    }
+}
+
 
 //класс который отвечает за обмен сообщениями в чате
 class Chat
@@ -302,7 +377,7 @@ public:
     }*/
     
     vector<Message> readPrivateMessage(const Session& session)
-     {
+    {
          vector<Message> result;
          for (int i = 0; i < messages.size(); ++i)
          {
@@ -350,7 +425,88 @@ private:
     //массив сообщений, пара ключ значение или динамический массив структур с тремя полями (отправитель, получатель, текст сообщения)
     //dynamic_array <Message> messages;
     vector<Message> messages;
+    
+    friend istream& operator >>(istream& is, Chat& obj);
+    friend ostream& operator <<(ostream& os, const Chat& obj);
 };
+
+ostream & operator << (ostream & os, const Chat& chat )
+{
+    os << chat.messages.size() << endl;
+    for(const auto & m : chat.messages)
+    {
+        os << m;
+    }
+    return os;
+}
+
+istream & operator >> (istream & is, Chat& chat )
+{
+    size_t messages_count;
+    
+    is >> messages_count;
+    
+    for(int i = 0; i < messages_count; i++)
+    {
+        Message m;
+        is >> m;
+        chat.messages.emplace_back(m);
+    }
+    
+    return is;
+}
+
+
+istream& operator >>(istream& is, User& obj)
+{
+    is >> obj.m_name;
+    is >> obj.m_login;
+    is >> obj.m_password;
+    return is;
+}
+ostream& operator <<(ostream& os, const User& obj)
+{
+    os << obj.m_name;
+    os << ' ';
+    os << obj.m_login;
+    os << ' ';
+    os << obj.m_password;
+    os << ' ';
+    return os;
+}
+
+istream& operator >>(istream& is, Message& obj)
+{
+    is >> obj.m_name;
+    is >> obj.m_message;
+    is >> obj.m_receiver_login;
+    return is;
+}
+ostream& operator <<(ostream& os, const Message& obj)
+{
+    os << obj.m_name;
+    os << ' ';
+    os << obj.m_message;
+    os << ' ';
+    os << obj.m_receiver_login;
+    os << ' ';
+    return os;
+}
+
+istream& operator >>(istream& is, Session& obj)
+{
+    is >> obj.m_name;
+    is >> obj.m_login;
+    return is;
+}
+ostream& operator <<(ostream& os, const Session& obj)
+{
+    os << obj.m_name;
+    os << ' ';
+    os << obj.m_login;
+ 
+    return os;
+}
 
 int main(int argc, const char * argv[])
 {
@@ -359,12 +515,26 @@ int main(int argc, const char * argv[])
     Chat mainchat;
     int count = 0;
     // приветствие
+   
     
     utsname utsname;
     uname(&utsname);
     cout << "OS name: " << utsname.sysname << endl;
     cout << "OS version: " << utsname.version << endl;
     cout << endl;
+    fstream login_input_file( "users.txt", ios_base::in);
+    if ( login_input_file.is_open() )
+    {
+        login_input_file >> mainlogin;
+        login_input_file.close();
+    }
+        
+    fstream chat_input_file( "messages.txt", ios_base::in);
+    if ( chat_input_file.is_open() )
+    {
+        chat_input_file >> mainchat;
+        chat_input_file.close();
+    }
     
     cout << "Welcome to chat!" << endl;
     // 3 кейса свитч на выбор логин, регистрация, и выход
@@ -391,7 +561,8 @@ int main(int argc, const char * argv[])
                     // если вход успешен то приветствие и приглашение к вводу сообщения (или приватное или общее) и вариант выхода из сессии но не из чата (три кейса свитч) или if else
                     cout << "Hellow " << usersession.getname() << endl;
                     // если сообщение приватное оно отобразится только у нужного юзера
-                    cout << mainchat.readPrivateMessage(usersession);
+                    //cout << mainchat.readPrivateMessage(usersession);
+                    displaymessage(cout, mainchat.readPrivateMessage(usersession));
                     while (true)
                     {
                         cout << "To send private message press '1', to send public message press '2', to logout press '3' and press 'q' to exit : " << endl;
@@ -420,7 +591,8 @@ int main(int argc, const char * argv[])
                                 getline(cin, message_text);
                                 mainchat.sendPublicMessage(usersession, message_text);
                                 // если сообщение публичное то оно отображается сразу Message readPublicMessage() и выкидывает к началу кейсов приглашение на ввод сообщения - перелогина или if else
-                                cout << mainchat.readPublicMessage(usersession);
+                                //cout << mainchat.readPublicMessage(usersession);
+                                displaymessage(cout, mainchat.readPublicMessage(usersession));
                             }
                                 break;
                             case '3':
@@ -449,7 +621,8 @@ int main(int argc, const char * argv[])
                                         usersession = mainlogin.loginUser(login, password);
                                         cout << "Hellow " << usersession.getname() << endl;
                                         // если сообщение приватное оно отобразится только у нужного юзера
-                                        cout << mainchat.readPrivateMessage(usersession);
+                                        //cout << mainchat.readPrivateMessage(usersession);
+                                        displaymessage(cout, mainchat.readPrivateMessage(usersession));
                                     }
                                 }
                                 else if (choice == 'n')
@@ -531,6 +704,14 @@ int main(int argc, const char * argv[])
             break;
         }
     }
+    
+    fstream login_output_file( "users.txt", ios_base::out);
+    login_output_file << mainlogin;
+    
+    
+    fstream chat_output_file( "messages.txt", ios_base::out);
+    chat_output_file << mainchat;
+    
     cout << "You quit chat" << endl;
     return 0;
 }
