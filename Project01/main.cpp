@@ -11,6 +11,10 @@
 #include <map>
 //#include "dynamic_array.h"
 #include <climits>
+#include <cstdlib>
+#include <stdlib.h>
+#include <sys/utsname.h>
+
 using namespace std;
 
 //класс который отвечает за информацию о пользователях чата
@@ -342,6 +346,7 @@ public:
     }
     
 private:
+    
     //массив сообщений, пара ключ значение или динамический массив структур с тремя полями (отправитель, получатель, текст сообщения)
     //dynamic_array <Message> messages;
     vector<Message> messages;
@@ -354,6 +359,13 @@ int main(int argc, const char * argv[])
     Chat mainchat;
     int count = 0;
     // приветствие
+    
+    utsname utsname;
+    uname(&utsname);
+    cout << "OS name: " << utsname.sysname << endl;
+    cout << "OS version: " << utsname.version << endl;
+    cout << endl;
+    
     cout << "Welcome to chat!" << endl;
     // 3 кейса свитч на выбор логин, регистрация, и выход
     char choice = 0;
