@@ -48,6 +48,31 @@ public:
         }
     }
     
+    // Перегрузка оператора присваивания
+    dynamic_array& operator = (const dynamic_array<Data> & a)
+    {
+        if (this !== &a)
+        {
+            delete [] m_data;
+            m_size = a.m_size;
+            m_capacity = m_size;
+            if (m_size != 0)
+            {
+                m_data = new Data[m_size];
+            }
+            else
+            {
+                m_data = nullptr;
+            }
+            for (int i = 0; i < m_size; ++i)
+            {
+                m_data[i] = a.m_data[i];
+            }            
+        }
+        return *this;
+    };
+     
+    
     ~dynamic_array()
     {
         delete[] m_data;

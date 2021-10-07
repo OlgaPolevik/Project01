@@ -17,14 +17,21 @@ using namespace std;
 class User
 {
 public:
-    User()
+    /* User()
     {
         
     }
     ~User()
     {
         
+    }*/
+    User() = default;
+    User(const string& login, const string& password, const string& name) : m_name(name), m_login(login), m_password(password)
+    {
+        
     }
+    ~User() = default;
+    
     void setlogin(const string& login)
     {
         m_login = login;
@@ -59,14 +66,17 @@ private:
 class Session
 {
 public:
-    Session()
+    /*Session()
     {
         
     }
     ~Session()
     {
         
-    }
+    }*/
+    Session() = default;
+    ~Session() = default;
+    
     void setname(const string& name)
     {
         m_name = name;
@@ -93,14 +103,16 @@ private:
 class Login
 {
 public:
-    Login()
+    /*Login()
     {
         
     }
     ~Login()
     {
         
-    }
+    }*/
+    Login() = default;
+    ~Login() = default;
     //проверка на существующего юзера
     bool isUserExist (const string& login)
      {
@@ -125,10 +137,12 @@ public:
         {
             throw exception();
         }
-        User user;
+        /*User user;
         user.setname(name);
         user.setlogin(login);
         user.setpassword(password);
+        */
+        User user(name, login, password);
         //users.push_back(user);
         users.emplace(login,user);
         return true;
@@ -412,11 +426,19 @@ int main(int argc, const char * argv[])
                                     cout << "Enter you password: " << endl;
                                     string password;
                                     cin >> password;
-                                    if (!usersession.getlogin().empty())
-                                    usersession = mainlogin.loginUser(login, password);
-                                    cout << "Hellow " << usersession.getname() << endl;
-                                    // если сообщение приватное оно отобразится только у нужного юзера
-                                    cout << mainchat.readPrivateMessage(usersession);
+                                    Session usersession = mainlogin.loginUser(login, password);
+                                    if(usersession.getlogin().empty())
+                                    {
+                                        cout << "You entered wrong data!" << endl;
+                                        quit = true;
+                                    }
+                                    else
+                                    {
+                                        usersession = mainlogin.loginUser(login, password);
+                                        cout << "Hellow " << usersession.getname() << endl;
+                                        // если сообщение приватное оно отобразится только у нужного юзера
+                                        cout << mainchat.readPrivateMessage(usersession);
+                                    }
                                 }
                                 else if (choice == 'n')
                                 {
