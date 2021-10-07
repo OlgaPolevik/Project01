@@ -10,7 +10,7 @@
 #include <vector>
 #include <map>
 //#include "dynamic_array.h"
-
+#include <climits>
 using namespace std;
 
 //класс который отвечает за информацию о пользователях чата

@@ -7,7 +7,7 @@
 
 #ifndef dynamic_array_h
 #define dynamic_array_h
-
+#include <ostream>
 using namespace std;
 
 template <class Data>
@@ -51,7 +51,7 @@ public:
     // Перегрузка оператора присваивания
     dynamic_array& operator = (const dynamic_array<Data> & a)
     {
-        if (this !== &a)
+        if (this != &a)
         {
             delete [] m_data;
             m_size = a.m_size;
@@ -118,7 +118,7 @@ private:
 };
 
 template<class Data>
-ostream& operator << (ostream& out, dynamic_array<Data> a )
+std::ostream& operator << (std::ostream& out, dynamic_array<Data> a )
 {
     for (int i = 0; i < a.size(); ++i)
     {
