@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		775C960226B19D0300E62124 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 775C960126B19D0300E62124 /* main.cpp */; };
+		77752E5E2720B12300FB2692 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E5D2720B12300FB2692 /* server.cpp */; };
+		77752E622720B42F00FB2692 /* user.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E612720B42F00FB2692 /* user.cpp */; };
+		77752E7B2720BA2D00FB2692 /* session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E7A2720BA2D00FB2692 /* session.cpp */; };
+		77752E7F272171C900FB2692 /* login.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E7E272171C900FB2692 /* login.cpp */; };
+		77752E83272176E100FB2692 /* message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E82272176E100FB2692 /* message.cpp */; };
+		77752E8827218BCE00FB2692 /* chat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E8727218BCE00FB2692 /* chat.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +33,18 @@
 		775C960126B19D0300E62124 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		775C960926B9DD3300E62124 /* dynamic_array.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dynamic_array.h; sourceTree = "<group>"; };
 		776ED96A26BE90B1003C18E8 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		77752E5C2720B0F900FB2692 /* server.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = server.h; sourceTree = "<group>"; };
+		77752E5D2720B12300FB2692 /* server.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
+		77752E602720B41F00FB2692 /* user.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = user.h; sourceTree = "<group>"; };
+		77752E612720B42F00FB2692 /* user.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = user.cpp; sourceTree = "<group>"; };
+		77752E792720BA1300FB2692 /* session.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = session.h; sourceTree = "<group>"; };
+		77752E7A2720BA2D00FB2692 /* session.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = session.cpp; sourceTree = "<group>"; };
+		77752E7D272171B500FB2692 /* login.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = login.h; sourceTree = "<group>"; };
+		77752E7E272171C900FB2692 /* login.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = login.cpp; sourceTree = "<group>"; };
+		77752E81272176CC00FB2692 /* message.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = message.h; sourceTree = "<group>"; };
+		77752E82272176E100FB2692 /* message.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = message.cpp; sourceTree = "<group>"; };
+		77752E8627218BB900FB2692 /* chat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chat.h; sourceTree = "<group>"; };
+		77752E8727218BCE00FB2692 /* chat.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = chat.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +79,19 @@
 			isa = PBXGroup;
 			children = (
 				775C960126B19D0300E62124 /* main.cpp */,
+				77752E8627218BB900FB2692 /* chat.h */,
+				77752E8727218BCE00FB2692 /* chat.cpp */,
+				77752E81272176CC00FB2692 /* message.h */,
+				77752E82272176E100FB2692 /* message.cpp */,
+				77752E7D272171B500FB2692 /* login.h */,
+				77752E7E272171C900FB2692 /* login.cpp */,
+				77752E792720BA1300FB2692 /* session.h */,
+				77752E7A2720BA2D00FB2692 /* session.cpp */,
+				77752E5C2720B0F900FB2692 /* server.h */,
 				775C960926B9DD3300E62124 /* dynamic_array.h */,
+				77752E5D2720B12300FB2692 /* server.cpp */,
+				77752E602720B41F00FB2692 /* user.h */,
+				77752E612720B42F00FB2692 /* user.cpp */,
 			);
 			path = Project01;
 			sourceTree = "<group>";
@@ -122,7 +152,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77752E7B2720BA2D00FB2692 /* session.cpp in Sources */,
+				77752E5E2720B12300FB2692 /* server.cpp in Sources */,
 				775C960226B19D0300E62124 /* main.cpp in Sources */,
+				77752E622720B42F00FB2692 /* user.cpp in Sources */,
+				77752E7F272171C900FB2692 /* login.cpp in Sources */,
+				77752E83272176E100FB2692 /* message.cpp in Sources */,
+				77752E8827218BCE00FB2692 /* chat.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
