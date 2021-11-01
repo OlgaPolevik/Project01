@@ -26,13 +26,10 @@
 
 using namespace std;
 
-
-
-
 int main(int argc, const char * argv[])
 {
     Server server;
-    server.run();
+    server.run2();
     
     return 0;
 }
