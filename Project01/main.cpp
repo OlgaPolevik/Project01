@@ -24,12 +24,16 @@
 #include "message.h"
 #include "chat.h"
 
+#include <mysqlx/xdevapi.h>
+
 using namespace std;
 
 int main(int argc, const char * argv[])
 {
+    cout << "Welcome to chat" << endl;
+    
     Server server;
     server.run2();
-    
+  
     return 0;
 }

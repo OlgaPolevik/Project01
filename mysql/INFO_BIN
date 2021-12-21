@@ -1,0 +1,11 @@
+MySQL Connector/C++ Build Information
+
+build-date           :  2021-09-24
+os-info              :  Darwin-20.3.0
+compiler             :  AppleClang 12.0.0.12000032
+protobuf-version     :  3.6.1
+build-type           :  Release
+ssl-library          :  OpenSSL 1.1.1l
+macos-version        :  11.2.3
+mysql-version        :  8.0.27
+

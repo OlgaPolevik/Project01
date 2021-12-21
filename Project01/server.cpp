@@ -26,8 +26,14 @@
 using namespace std;
 
 Server::Server()
+    : mysql_session( "localhost", 33060, "root", "" )
+    , mysql_database( mysql_session.getSchema( "chat" ) )
+    , mainlogin( mysql_database )
+    , mainchat( mysql_database )
 {
     setlocale (LC_ALL,"");
+    
+    /*
     
     fstream login_input_file( "users.txt", ios_base::in);
     if ( login_input_file.is_open() )
@@ -42,16 +48,18 @@ Server::Server()
         chat_input_file >> mainchat;
         chat_input_file.close();
     }
+     */
 }
 
 Server::~Server()
 {
+    /*
     fstream login_output_file( "users.txt", ios_base::out);
     login_output_file << mainlogin;
     
-    
     fstream chat_output_file( "messages.txt", ios_base::out);
     chat_output_file << mainchat;
+    */
 }
 
 void Server::run2()
@@ -60,14 +68,14 @@ void Server::run2()
     socket_file_descriptor = socket(AF_INET, SOCK_DGRAM, 0);
     serveraddress.sin_addr.s_addr = htonl(INADDR_ANY);
     // Зададим порт для соединения
-    serveraddress.sin_port = htons(PORT);
+    serveraddress.sin_port = htons(CHAT_PORT);
     // Используем IPv4
     serveraddress.sin_family = AF_INET;
     // Привяжем сокет
     if ( ::bind( socket_file_descriptor, (struct sockaddr*)&serveraddress, sizeof( serveraddress ) ) != 0 )
     {
-        cout << "error" << endl;
-        exit(-1);
+        cout << "Unable to bind socket." << endl;
+        exit( -1 );
     }
     
     while( 1 )
@@ -82,7 +90,7 @@ void Server::run2()
     }
 
     // закрываем сокет, завершаем соединение
-    cout << "Server is Quitting" << endl;
+    cout << "Server is quitting..." << endl;
     close(socket_file_descriptor);
 }
 

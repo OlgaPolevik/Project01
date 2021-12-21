@@ -7,16 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77009132276A916900B68D4A /* libssl.1.1.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 7766EF9C27693F5A008F8F37 /* libssl.1.1.dylib */; };
+		77009134276A916C00B68D4A /* libcrypto.1.1.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 7766EF9B27693F4C008F8F37 /* libcrypto.1.1.dylib */; };
 		775C960226B19D0300E62124 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 775C960126B19D0300E62124 /* main.cpp */; };
+		7766EF9D27693F68008F8F37 /* libcrypto.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7766EF9B27693F4C008F8F37 /* libcrypto.1.1.dylib */; };
+		7766EF9E27693F68008F8F37 /* libssl.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7766EF9C27693F5A008F8F37 /* libssl.1.1.dylib */; };
+		7766EFA227694238008F8F37 /* libresolv.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7766EFA12769420B008F8F37 /* libresolv.9.tbd */; };
 		77752E5E2720B12300FB2692 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E5D2720B12300FB2692 /* server.cpp */; };
 		77752E622720B42F00FB2692 /* user.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E612720B42F00FB2692 /* user.cpp */; };
 		77752E7B2720BA2D00FB2692 /* session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E7A2720BA2D00FB2692 /* session.cpp */; };
 		77752E7F272171C900FB2692 /* login.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E7E272171C900FB2692 /* login.cpp */; };
 		77752E83272176E100FB2692 /* message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E82272176E100FB2692 /* message.cpp */; };
 		77752E8827218BCE00FB2692 /* chat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E8727218BCE00FB2692 /* chat.cpp */; };
+		77A8C2B52769387700D0407C /* libmysqlcppconn-static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A8C2B42769387400D0407C /* libmysqlcppconn-static.a */; };
+		77A8C2B7276938AC00D0407C /* libmysqlcppconn8-static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A8C2B6276938A800D0407C /* libmysqlcppconn8-static.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		77009133276A916900B68D4A /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				77009132276A916900B68D4A /* libssl.1.1.dylib in Embed Libraries */,
+				77009134276A916C00B68D4A /* libcrypto.1.1.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		775C95FC26B19D0300E62124 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -32,6 +51,11 @@
 		775C95FE26B19D0300E62124 /* Project01 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Project01; sourceTree = BUILT_PRODUCTS_DIR; };
 		775C960126B19D0300E62124 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		775C960926B9DD3300E62124 /* dynamic_array.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dynamic_array.h; sourceTree = "<group>"; };
+		7766EF9B27693F4C008F8F37 /* libcrypto.1.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.1.1.dylib; path = mysql/lib64/libcrypto.1.1.dylib; sourceTree = "<group>"; };
+		7766EF9C27693F5A008F8F37 /* libssl.1.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.1.1.dylib; path = mysql/lib64/libssl.1.1.dylib; sourceTree = "<group>"; };
+		7766EF9F27693F91008F8F37 /* libfido2.1.5.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfido2.1.5.0.dylib; path = mysql/lib64/private/libfido2.1.5.0.dylib; sourceTree = "<group>"; };
+		7766EFA12769420B008F8F37 /* libresolv.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.9.tbd; path = usr/lib/libresolv.9.tbd; sourceTree = SDKROOT; };
+		7766EFA327694239008F8F37 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		776ED96A26BE90B1003C18E8 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		77752E5C2720B0F900FB2692 /* server.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = server.h; sourceTree = "<group>"; };
 		77752E5D2720B12300FB2692 /* server.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
@@ -45,6 +69,39 @@
 		77752E82272176E100FB2692 /* message.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = message.cpp; sourceTree = "<group>"; };
 		77752E8627218BB900FB2692 /* chat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chat.h; sourceTree = "<group>"; };
 		77752E8727218BCE00FB2692 /* chat.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = chat.cpp; sourceTree = "<group>"; };
+		77A8C292276936C100D0407C /* Tor Browser.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "Tor Browser.app"; sourceTree = "<group>"; };
+		77A8C293276936C100D0407C /* Viber.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Viber.app; sourceTree = "<group>"; };
+		77A8C294276936C100D0407C /* Google Chrome.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "Google Chrome.app"; sourceTree = "<group>"; };
+		77A8C295276936C100D0407C /* Numbers.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Numbers.app; sourceTree = "<group>"; };
+		77A8C296276936C100D0407C /* .localized */ = {isa = PBXFileReference; lastKnownFileType = text; path = .localized; sourceTree = "<group>"; };
+		77A8C297276936C100D0407C /* NTFS for Mac.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "NTFS for Mac.app"; sourceTree = "<group>"; };
+		77A8C298276936C100D0407C /* VMware Fusion.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "VMware Fusion.app"; sourceTree = "<group>"; };
+		77A8C299276936C100D0407C /* Telegram.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Telegram.app; sourceTree = "<group>"; };
+		77A8C29A276936C100D0407C /* Xcode.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Xcode.app; sourceTree = "<group>"; };
+		77A8C29B276936C100D0407C /* iMovie.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = iMovie.app; sourceTree = "<group>"; };
+		77A8C29C276936C100D0407C /* DBeaver.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = DBeaver.app; sourceTree = "<group>"; };
+		77A8C29D276936C100D0407C /* Safari.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Safari.app; sourceTree = "<group>"; };
+		77A8C29E276936C100D0407C /* AdBlock.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = AdBlock.app; sourceTree = "<group>"; };
+		77A8C2A0276936C100D0407C /* .localized */ = {isa = PBXFileReference; lastKnownFileType = text; path = .localized; sourceTree = "<group>"; };
+		77A8C2A1276936C100D0407C /* zoom.us.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = zoom.us.app; sourceTree = "<group>"; };
+		77A8C2A2276936C100D0407C /* WhatsApp.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = WhatsApp.app; sourceTree = "<group>"; };
+		77A8C2A3276936C100D0407C /* Keynote.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Keynote.app; sourceTree = "<group>"; };
+		77A8C2A4276936C100D0407C /* RAR Extractor - Unarchiver.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "RAR Extractor - Unarchiver.app"; sourceTree = "<group>"; };
+		77A8C2A5276936C100D0407C /* Pages.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Pages.app; sourceTree = "<group>"; };
+		77A8C2A6276936C100D0407C /* Android Studio.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "Android Studio.app"; sourceTree = "<group>"; };
+		77A8C2A7276936C100D0407C /* Folx.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Folx.app; sourceTree = "<group>"; };
+		77A8C2A8276936C100D0407C /* Slack.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Slack.app; sourceTree = "<group>"; };
+		77A8C2A9276936C100D0407C /* MKPlayer.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = MKPlayer.app; sourceTree = "<group>"; };
+		77A8C2AB276936C100D0407C /* Reload Configuration.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "Reload Configuration.app"; sourceTree = "<group>"; };
+		77A8C2AD276936C100D0407C /* PostgreSQL documentation.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "PostgreSQL documentation.app"; sourceTree = "<group>"; };
+		77A8C2AE276936C100D0407C /* PostgreSQL release notes.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "PostgreSQL release notes.app"; sourceTree = "<group>"; };
+		77A8C2AF276936C100D0407C /* Installation notes.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "Installation notes.app"; sourceTree = "<group>"; };
+		77A8C2B0276936C100D0407C /* pgAdmin documentation.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "pgAdmin documentation.app"; sourceTree = "<group>"; };
+		77A8C2B1276936C100D0407C /* SQL Shell (psql).app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "SQL Shell (psql).app"; sourceTree = "<group>"; };
+		77A8C2B2276936C100D0407C /* Application Stack Builder.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "Application Stack Builder.app"; sourceTree = "<group>"; };
+		77A8C2B3276936C100D0407C /* pgAdmin 4.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "pgAdmin 4.app"; sourceTree = "<group>"; };
+		77A8C2B42769387400D0407C /* libmysqlcppconn-static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libmysqlcppconn-static.a"; path = "mysql/lib64/libmysqlcppconn-static.a"; sourceTree = "<group>"; };
+		77A8C2B6276938A800D0407C /* libmysqlcppconn8-static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libmysqlcppconn8-static.a"; path = "mysql/lib64/libmysqlcppconn8-static.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +109,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7766EF9D27693F68008F8F37 /* libcrypto.1.1.dylib in Frameworks */,
+				7766EF9E27693F68008F8F37 /* libssl.1.1.dylib in Frameworks */,
+				7766EFA227694238008F8F37 /* libresolv.9.tbd in Frameworks */,
+				77A8C2B7276938AC00D0407C /* libmysqlcppconn8-static.a in Frameworks */,
+				77A8C2B52769387700D0407C /* libmysqlcppconn-static.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +126,7 @@
 				776ED96A26BE90B1003C18E8 /* Readme.md */,
 				775C960026B19D0300E62124 /* Project01 */,
 				775C95FF26B19D0300E62124 /* Products */,
+				77A8C290276936C100D0407C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +159,84 @@
 			path = Project01;
 			sourceTree = "<group>";
 		};
+		77A8C290276936C100D0407C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7766EFA327694239008F8F37 /* libresolv.tbd */,
+				7766EFA12769420B008F8F37 /* libresolv.9.tbd */,
+				7766EF9F27693F91008F8F37 /* libfido2.1.5.0.dylib */,
+				7766EF9B27693F4C008F8F37 /* libcrypto.1.1.dylib */,
+				7766EF9C27693F5A008F8F37 /* libssl.1.1.dylib */,
+				77A8C2B6276938A800D0407C /* libmysqlcppconn8-static.a */,
+				77A8C2B42769387400D0407C /* libmysqlcppconn-static.a */,
+				77A8C291276936C100D0407C /* Applications */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		77A8C291276936C100D0407C /* Applications */ = {
+			isa = PBXGroup;
+			children = (
+				77A8C292276936C100D0407C /* Tor Browser.app */,
+				77A8C293276936C100D0407C /* Viber.app */,
+				77A8C294276936C100D0407C /* Google Chrome.app */,
+				77A8C295276936C100D0407C /* Numbers.app */,
+				77A8C296276936C100D0407C /* .localized */,
+				77A8C297276936C100D0407C /* NTFS for Mac.app */,
+				77A8C298276936C100D0407C /* VMware Fusion.app */,
+				77A8C299276936C100D0407C /* Telegram.app */,
+				77A8C29A276936C100D0407C /* Xcode.app */,
+				77A8C29B276936C100D0407C /* iMovie.app */,
+				77A8C29C276936C100D0407C /* DBeaver.app */,
+				77A8C29D276936C100D0407C /* Safari.app */,
+				77A8C29E276936C100D0407C /* AdBlock.app */,
+				77A8C29F276936C100D0407C /* Utilities */,
+				77A8C2A1276936C100D0407C /* zoom.us.app */,
+				77A8C2A2276936C100D0407C /* WhatsApp.app */,
+				77A8C2A3276936C100D0407C /* Keynote.app */,
+				77A8C2A4276936C100D0407C /* RAR Extractor - Unarchiver.app */,
+				77A8C2A5276936C100D0407C /* Pages.app */,
+				77A8C2A6276936C100D0407C /* Android Studio.app */,
+				77A8C2A7276936C100D0407C /* Folx.app */,
+				77A8C2A8276936C100D0407C /* Slack.app */,
+				77A8C2A9276936C100D0407C /* MKPlayer.app */,
+				77A8C2AA276936C100D0407C /* PostgreSQL 14 */,
+			);
+			name = Applications;
+			path = ../../../../Applications;
+			sourceTree = "<group>";
+		};
+		77A8C29F276936C100D0407C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				77A8C2A0276936C100D0407C /* .localized */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		77A8C2AA276936C100D0407C /* PostgreSQL 14 */ = {
+			isa = PBXGroup;
+			children = (
+				77A8C2AB276936C100D0407C /* Reload Configuration.app */,
+				77A8C2AC276936C100D0407C /* Documentation */,
+				77A8C2B1276936C100D0407C /* SQL Shell (psql).app */,
+				77A8C2B2276936C100D0407C /* Application Stack Builder.app */,
+				77A8C2B3276936C100D0407C /* pgAdmin 4.app */,
+			);
+			path = "PostgreSQL 14";
+			sourceTree = "<group>";
+		};
+		77A8C2AC276936C100D0407C /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				77A8C2AD276936C100D0407C /* PostgreSQL documentation.app */,
+				77A8C2AE276936C100D0407C /* PostgreSQL release notes.app */,
+				77A8C2AF276936C100D0407C /* Installation notes.app */,
+				77A8C2B0276936C100D0407C /* pgAdmin documentation.app */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,6 +247,7 @@
 				775C95FA26B19D0300E62124 /* Sources */,
 				775C95FB26B19D0300E62124 /* Frameworks */,
 				775C95FC26B19D0300E62124 /* CopyFiles */,
+				77009133276A916900B68D4A /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -280,7 +422,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/mysql/include";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/mysql/lib64",
+					"$(PROJECT_DIR)/mysql/lib64/private",
+				);
+				PRELINK_LIBS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = /usr/local/mysql/include;
 			};
 			name = Debug;
 		};
@@ -288,7 +437,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/mysql/include";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/mysql/lib64",
+					"$(PROJECT_DIR)/mysql/lib64/private",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PRELINK_LIBS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = /usr/local/mysql/include;
 			};
 			name = Release;
 		};

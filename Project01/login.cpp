@@ -8,47 +8,101 @@
 #include <stdio.h>
 #include "login.h"
 
-Login::Login() = default;
+Login::Login( mysqlx::Schema& database )
+    : db_users( database.getTable( "users" ) )
+    //, db_sessions( database.getTable( "sessions" ) )
+{
+}
+
 Login::~Login() = default;
 
 //проверка на существующего юзера
 bool Login::isUserExist (const string& login)
 {
-     return users.count(login) != 0;
+    mysqlx::RowResult rows = db_users
+        .select( "login" )
+        .where( "login = :login" )
+        .bind( "login", login )
+        .execute();
+    
+    return rows.count() == 1;
+    
+    // return users.count(login) != 0;
 }
 //реализация регистрации
 bool Login::registerUser (const string& name, const string& login, const string& password)
 {
-    if (isUserExist(login))
+    if ( isUserExist( login ) )
     {
         return false;
     }
-    if (users.size() == 3)
-    {
-        throw exception();
-    }    
-    User user(name, login, password);
-    //users.push_back(user);
-    users.emplace(login,user);
-    return true;
+    
+//    if (users.size() == 3)
+//    {
+//        throw exception();
+//    }
+    
+//    User user(name, login, password);
+//    //users.push_back(user);
+//    users.emplace(login,user);
+    
+    mysqlx::Result result = db_users
+        .insert().values( login, password, name )
+        .execute();
+    
+    return result.getWarningsCount() == 0;
 }
+
 //инициация сессии активной? или залогинивание юзера
 Session Login::loginUser (const string& login, const string& password)
 {
-    map<string,User>::iterator user = users.find(login);
-    if(user == users.end())
+    mysqlx::RowResult rows = db_users
+        .select( "*" )
+        .where( "login = :login" )
+        .bind( "login", login )
+        .execute();
+    
+    if ( rows.count() != 1 )
     {
         return Session();
     }
-    if(user -> second.getpassword() == password)
+        
+    mysqlx::Row row = rows.fetchOne();
+    
+    assert( row.colCount() == 3 );
+    
+    User user;
+    user.setlogin( static_cast<string>( row.get( 0 ) ) );
+    user.setpassword( static_cast<string>( row.get( 1 ) ) );
+    user.setname( static_cast<string>( row.get( 2 ) ) );
+    
+    if ( user.getpassword() == password)
     {
         //coздаем сессию для пользователя у которого совпадают логин и пароль
         Session session;
-        session.setlogin(login);
-        session.setname(user -> second.getname());
-        sessions.emplace(login,session);
+        session.setlogin( login );
+        session.setname( user.getname() );
+        sessions.emplace( login,session );
         return session;
     }
+
+    // map<string,User>::iterator user = users.find(login);
+    
+    // if(user == users.end())
+    // {
+    //    return Session();
+    // }
+    
+    //if(user -> second.getpassword() == password)
+    //{
+    //    //coздаем сессию для пользователя у которого совпадают логин и пароль
+    //    Session session;
+    //    session.setlogin(login);
+    //    session.setname(user -> second.getname());
+    //    sessions.emplace(login,session);
+    //    return session;
+    //}
+    
     return Session();
 }
 
@@ -58,6 +112,7 @@ void Login::logout (const Session& session)
     sessions.erase(session.getlogin());
 }
 
+/*
 ostream& operator << (ostream & os, const Login& login )
 {
     os << login.users.size() << endl;
@@ -98,3 +153,4 @@ istream& operator >> (istream & is, Login& login )
     }
     return is;
 }
+*/

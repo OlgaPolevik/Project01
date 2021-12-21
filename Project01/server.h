@@ -10,11 +10,14 @@
 
 #include <sys/socket.h>
 #include <arpa/inet.h>
+
+#include <mysqlx/xdevapi.h>
+
 #include "login.h"
 #include "chat.h"
 
 #define MESSAGE_BUFFER 1024 // Максимальный размер буфера для приема и передачи
-#define PORT 7777 // Номер порта, который будем использовать для приема и передачи
+#define CHAT_PORT 7777 // Номер порта, который будем использовать для приема и передачи
 
 class Server
 {
@@ -30,9 +33,13 @@ private:
     char message[MESSAGE_BUFFER];
     int socket_file_descriptor;
     struct sockaddr_in serveraddress, client;
+    
+    mysqlx::Session mysql_session;
+    mysqlx::Schema mysql_database;
+
     Login mainlogin;
     Chat mainchat;
-        
+    
     void send( const std::string& data );
     std::string receive();
 };
