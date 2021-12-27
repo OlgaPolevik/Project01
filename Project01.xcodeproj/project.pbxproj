@@ -21,6 +21,7 @@
 		77752E8827218BCE00FB2692 /* chat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77752E8727218BCE00FB2692 /* chat.cpp */; };
 		77A8C2B52769387700D0407C /* libmysqlcppconn-static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A8C2B42769387400D0407C /* libmysqlcppconn-static.a */; };
 		77A8C2B7276938AC00D0407C /* libmysqlcppconn8-static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A8C2B6276938A800D0407C /* libmysqlcppconn8-static.a */; };
+		77CE1AB82773C94800AF7EEC /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77CE1AB72773C94800AF7EEC /* logger.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -102,6 +103,8 @@
 		77A8C2B3276936C100D0407C /* pgAdmin 4.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "pgAdmin 4.app"; sourceTree = "<group>"; };
 		77A8C2B42769387400D0407C /* libmysqlcppconn-static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libmysqlcppconn-static.a"; path = "mysql/lib64/libmysqlcppconn-static.a"; sourceTree = "<group>"; };
 		77A8C2B6276938A800D0407C /* libmysqlcppconn8-static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libmysqlcppconn8-static.a"; path = "mysql/lib64/libmysqlcppconn8-static.a"; sourceTree = "<group>"; };
+		77CE1AB62773C90C00AF7EEC /* logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = logger.h; sourceTree = "<group>"; };
+		77CE1AB72773C94800AF7EEC /* logger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = logger.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +146,8 @@
 			children = (
 				775C960126B19D0300E62124 /* main.cpp */,
 				77752E8627218BB900FB2692 /* chat.h */,
+				77CE1AB62773C90C00AF7EEC /* logger.h */,
+				77CE1AB72773C94800AF7EEC /* logger.cpp */,
 				77752E8727218BCE00FB2692 /* chat.cpp */,
 				77752E81272176CC00FB2692 /* message.h */,
 				77752E82272176E100FB2692 /* message.cpp */,
@@ -297,6 +302,7 @@
 				77752E7B2720BA2D00FB2692 /* session.cpp in Sources */,
 				77752E5E2720B12300FB2692 /* server.cpp in Sources */,
 				775C960226B19D0300E62124 /* main.cpp in Sources */,
+				77CE1AB82773C94800AF7EEC /* logger.cpp in Sources */,
 				77752E622720B42F00FB2692 /* user.cpp in Sources */,
 				77752E7F272171C900FB2692 /* login.cpp in Sources */,
 				77752E83272176E100FB2692 /* message.cpp in Sources */,
@@ -421,6 +427,7 @@
 		775C960626B19D0300E62124 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/mysql/include";
 				LIBRARY_SEARCH_PATHS = (
@@ -436,6 +443,7 @@
 		775C960726B19D0300E62124 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/mysql/include";
 				LIBRARY_SEARCH_PATHS = (

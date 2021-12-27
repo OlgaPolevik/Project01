@@ -13,6 +13,7 @@
 
 #include <mysqlx/xdevapi.h>
 
+#include "logger.h"
 #include "login.h"
 #include "chat.h"
 
@@ -39,6 +40,8 @@ private:
 
     Login mainlogin;
     Chat mainchat;
+    
+    Logger logger;
     
     void send( const std::string& data );
     std::string receive();

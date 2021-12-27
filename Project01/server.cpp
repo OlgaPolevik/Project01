@@ -78,6 +78,8 @@ void Server::run2()
         exit( -1 );
     }
     
+    logger.log() << "Listening...";
+    
     while( 1 )
     {
         // NOTE: Выполняем в run() цикл общения с клиентом. Цикл должен состоять
@@ -522,6 +524,7 @@ void Server::send( const std::string& data )
     strncpy(message, data.c_str(),MESSAGE_BUFFER);
     sendto(socket_file_descriptor, message, MESSAGE_BUFFER, 0, (struct sockaddr*)&client, sizeof(client));
 
+    logger.log() << "server=>client: " << data;
     cout << "server=>client: " << data << endl;
 }
 
@@ -532,6 +535,7 @@ std::string Server::receive()
     ssize_t message_size = recvfrom(socket_file_descriptor, buffer, sizeof(buffer), 0, (struct sockaddr*)&client, &length);
     buffer[message_size] = '\0';
     
+    logger.log() << "client=>server: " << buffer;
     cout << "client=>server: " << buffer << endl;
     
     return buffer;
